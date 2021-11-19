@@ -1,0 +1,1 @@
+# skaffold-set-value-templates-errors-repro
