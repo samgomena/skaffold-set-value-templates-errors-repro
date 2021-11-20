@@ -1,0 +1,12 @@
+users:
+  username1:
+    - type: topic
+      name: "testing-topic-{{ .USER }}"
+      operation: Write
+    - type: group
+      name: "testing-group-{{ .USER }}"
+      operation: Read
+  username2:
+    - type: transactionalId
+      name: "testing-transactional-id-{{ .USER }}"
+      operation: Read

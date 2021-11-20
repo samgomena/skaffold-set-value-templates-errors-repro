@@ -1,0 +1,17 @@
+{{- range $userName, $userAcls := .Values.users }}
+apiVersion: kafka.strimzi.io/v1alpha1
+kind: KafkaUser
+metadata:
+  name: {{ $userName }}
+  labels:
+    strimzi.io/cluster: cluster-name
+spec:
+    acls:
+      {{- range $acl := $userAcls }}
+      - resource:
+          type: {{ $acl.type }}
+          name: {{ $acl.name }}
+        operation: {{ $acl.operation }}
+      {{- end }}
+---
+{{- end }}

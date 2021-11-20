@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+build:
+  artifacts:
+    - image: samgomena/set-value-templates-error-repro
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  helm:
+    releases:
+      - name: set-value-templates-error-repro
+        chartPath: ./repro-chart
+        artifactOverrides:
+          image.repository: samgomena/set-value-templates-error-repro
+        setValueTemplates:
+          users:
+            username1:
+              - type: topic
+                name: "topic-{{ .USER }}"
+                operation: Write
+              - type: group
+                name: "group-{{ .USER }}"
+                operation: Read
+            username2:
+              - type: transactionalId
+                name: "transactional-id-{{ .USER }}"
+                operation: Read
